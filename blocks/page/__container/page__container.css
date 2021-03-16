@@ -1,0 +1,4 @@
+.page__container {
+    width: calc(100% - (2 * 200px));
+    margin: 0 auto;
+}
