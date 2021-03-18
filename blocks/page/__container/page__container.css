@@ -2,3 +2,24 @@
     width: calc(100% - (2 * 200px));
     margin: 0 auto;
 }
+
+@media screen and (max-width: 1023px) {
+    .page__container {
+        width: calc(100% - (2 * 100px));
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .page__container {
+        width: calc(100% - (2 * 50px));
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .page__container {
+        width: calc(100% - (2 * 19px));
+        margin: 0 auto;
+    }
+}

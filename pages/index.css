@@ -1,6 +1,11 @@
 @import url('../vendor/normalize.css');
 @import url('../vendor/fonts/font.css');
 @import url('../blocks/page/page.css');
+@import url('../blocks/popup/popup.css');
+@import url('../blocks/popup/_opened/popup_opened.css');
+@import url('../blocks/popup/__overlay/popup__overlay.css');
+@import url('../blocks/popup/__content/popup__content.css');
+@import url('../blocks/popup/__close-button/popup__close-button.css');
 @import url('../blocks/page/__container/page__container.css');
 @import url('../blocks/header/header.css');
 @import url('../blocks/header/__logo/header__logo.css');
@@ -15,15 +20,51 @@
 @import url('../blocks/profile/__add-button/profile__add-button.css');
 @import url('../blocks/cards/cards.css');
 @import url('../blocks/card/card.css');
+@import url('../blocks/card/__content/card__content.css');
 @import url('../blocks/card/__image/card__image.css');
 @import url('../blocks/card/__text/card__text.css');
 @import url('../blocks/card/__like/card__like.css');
 @import url('../blocks/footer/footer.css');
 
 
+.popup__content_edit {
+    /* display: flex;
+    flex-direction: column;
+    margin: 34px 64px auto 36px; */
+}
 
-.card__content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+.popup__title {
+font-family: Inter;
+font-style: normal;
+font-weight: 900;
+font-size: 24px;
+line-height: 29px;
+color: #000000;
+max-width: 330px;
+height: 23px;
+margin: 0;
+
+}
+
+.popup__content_edit {
+    padding: 0 0 13px 0;
+    display: block;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+
+}
+
+.popup__button {
+   max-width: 358px;
+   height: 50px;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #000000;
+  border-radius: 2px;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
 }

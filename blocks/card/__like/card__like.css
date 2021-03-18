@@ -5,4 +5,9 @@
     height: 19px;
     background-size: contain;
     margin-right: 30px;
+    cursor: pointer;
+}
+
+.card__like:hover {
+    opacity: 0.5;
 }

@@ -1,0 +1,15 @@
+.popup__content {
+    position: absolute;
+    box-sizing: border-box;
+    /* margin: 195px 415px 195px 415px; */
+    transform: translateX(30%);
+    min-width: 430px;
+    min-height: 330px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 34px 36px 37px 36px;
+}

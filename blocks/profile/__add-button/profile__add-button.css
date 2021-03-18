@@ -3,8 +3,10 @@
     height: 50px;
     border: 2px solid #FFFFFF;
     box-sizing: border-box;
+    border-radius: 2px;
     position: relative;
     margin: auto 0 auto;
+    cursor: pointer;
 }
 
 .profile__add-button::before {
@@ -18,5 +20,26 @@
     bottom: 14px;
     left: 64px;
     right: 64px;
+}
 
+.profile__add-button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 320px) {
+    .profile__add-button {
+    width: 282px;
+    margin: 36px auto 0 auto;
+    } 
+    .profile__add-button::before {
+     width: 16px;
+     height: 16px;
+     top: 17px;
+     bottom: 17px;
+     justify-content: center;
+     left: 133px;
+     right: 151px;
+     background-size: contain;
+
+    }
 }
