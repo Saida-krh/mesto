@@ -7,17 +7,16 @@
   <link rel="stylesheet" href="./pages/index.css">
 </head>
   <body class="page">
-      <section class="popup popup_opened page__container">
+      <section class="popup page__container">
          <div class="popup__overlay"></div>
           <div class="popup__content">
              <div class="popup__close-button"></div>
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <input class="popup__content_edit" type="text">
-                <input class="popup__content_edit" type="text">
-                <button class="popup__button">Сохранить</button>
+                <input class="popup__content_edit" type="text" id='title'>
+                <input class="popup__content_edit" type="text" id='subtitle'>
+                <button class="popup__button" type="submit">Сохранить</button>
             </div>
         </section>
-    <script src="pages/index.js"></script>
       <header class="header page__container">
           <div class="header__logo"></div>
           <div class="header__line"></div>
@@ -80,5 +79,6 @@
     </section>
 </main>
     <footer class="footer page__container">&copy; 2020 Mesto Russia</footer>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>

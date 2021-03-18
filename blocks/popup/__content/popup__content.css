@@ -1,7 +1,7 @@
 .popup__content {
     position: absolute;
     box-sizing: border-box;
-    /* margin: 195px 415px 195px 415px; */
+    margin: 195px 415px 195px 415px;
     transform: translateX(30%);
     min-width: 430px;
     min-height: 330px;
