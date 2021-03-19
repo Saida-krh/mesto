@@ -13,3 +13,14 @@
     justify-content: space-between;
     padding: 34px 36px 37px 36px;
 }
+
+@media screen and (max-width: 320px) {
+    .popup__content {
+    min-width: 282px;
+    min-height: 322px;
+    margin: 0;
+    padding: 25px 22px 37px 25px;
+    transform: translateX(0%);
+    margin-top: 120px;
+    }
+}

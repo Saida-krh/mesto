@@ -4,8 +4,12 @@ const openPopupClassName = 'popup_opened';
 const closeButton = document.querySelector('.popup__close-button');
 const title = document.querySelector('.profile__title');
 const subtitle = document.querySelector('.profile__subtitle');
+
+const formElement = document.querySelector('.popup__content');
+
 const inputTitle = document.getElementById('title');
 const inputSubTitle = document.getElementById('subtitle');
+
 const saveButton = document.querySelector('.popup__button')
 
 function popupToggler(){
@@ -26,15 +30,20 @@ function openPopup(){
     inputSubTitle.value = subtitle.textContent;
 }
 
-saveButton.addEventListener('click', function(){
-    savePopupData()
-});
+    // saveButton.addEventListener('click', function(){
+    //     savePopupData()
+    // });
 
 function savePopupData(){
     popupToggler()
     title.textContent = inputTitle.value;
     subtitle.textContent = inputSubTitle.value;
 }
+
+formElement.addEventListener('submit', function(evt) {
+    savePopupData()
+    evt.preventDefault();
+});
 
 
 console.log('Popup', popup)
