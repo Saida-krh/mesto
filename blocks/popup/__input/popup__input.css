@@ -1,4 +1,4 @@
-.popup__content_edit {
+.popup__input {
     padding: 0 0 13px 0;
     display: block;
     border: none;
@@ -8,7 +8,7 @@
 }
 
 @media screen and (max-width: 320px) {
-    .popup__content_edit {
+    .popup__input {
         font-size: 14px;
     line-height: 17px;
     }  
