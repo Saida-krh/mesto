@@ -7,3 +7,14 @@
     margin: 0 auto;
     text-rendering: optimizeLegibility;
   }
+
+@media screen and (max-width: 1023px) {
+  .page {
+    width: 100%;
+    }
+  } 
+@media screen and (max-width: 320px) {
+  .page {
+    width: 100%;
+    }
+  }

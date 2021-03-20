@@ -6,6 +6,7 @@
     position: relative;
     align-self: end;
     bottom: 8px;
+    cursor: pointer;
 }
 
 .profile__edit-button::before {
@@ -20,4 +21,23 @@
     left: 6px;
     right: 7px;
 
+}
+.profile__edit-button:hover {
+    opacity: 0.6;
+}
+@media screen and (max-width: 320px) {
+    .profile__edit-button {
+    width: 18px;
+    height: 18px;
+    }  
+
+    .profile__edit-button::before {
+        background-size: contain;
+        width: 7px;
+        height: 7px;
+        top: 4px;
+        bottom: 5px;
+        left: 4px;
+        right: 5px; 
+    }
 }

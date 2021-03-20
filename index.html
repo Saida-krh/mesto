@@ -7,7 +7,16 @@
   <link rel="stylesheet" href="./pages/index.css">
 </head>
   <body class="page">
-    <script src="pages/index.js"></script>
+      <section class="popup page__container">
+         <div class="popup__overlay"></div>
+          <form class="popup__content">
+             <div class="popup__close-button"></div>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <input class="popup__content_edit" type="text" id='title'>
+                <input class="popup__content_edit" type="text" id='subtitle'>
+                <button class="popup__button" type="submit">Сохранить</button>
+          </form>
+        </section>
       <header class="header page__container">
           <div class="header__logo"></div>
           <div class="header__line"></div>
@@ -28,47 +37,48 @@
      <article class="card">
       <img src="image/karachaevsk.png" alt="Карачаевск" class="card__image">
       <div class="card__content">
-        <p class="card__text">Карачаевск</p>
+        <h2 class="card__text">Карачаевск</h2>
         <div class="card__like"></div>
     </div>
      </article>
      <article class="card">
         <img src="image/goraElbrus.png" alt="Гора Эльбрус" class="card__image">
         <div class="card__content">
-            <p class="card__text">Гора Эльбрус</p>
+            <h2 class="card__text">Гора Эльбрус</h2>
             <div class="card__like"></div>
         </div>
     </article>
     <article class="card">
         <img src="image/Dombay.png" alt="Домбай" class="card__image">
         <div class="card__content">
-            <p class="card__text">Домбай</p>
+            <h2 class="card__text">Домбай</h2>
             <div class="card__like"></div>
         </div>
     </article>
     <article class="card">
         <img src="image/goraElbrus.png" alt="Гора Эльбрус" class="card__image">
         <div class="card__content">
-            <p class="card__text">Гора Эльбрус</p>
+            <h2 class="card__text">Гора Эльбрус</h2>
             <div class="card__like"></div>
         </div>
     </article>
     <article class="card">
         <img src="image/Dombay.png" alt="Домбай" class="card__image">
         <div class="card__content">
-            <p class="card__text">Домбай</p>
+            <h2 class="card__text">Домбай</h2>
             <div class="card__like"></div>
         </div>
     </article>
     <article class="card">
         <img src="image/karachaevsk.png" alt="Карачаево-Черкессия" class="card__image">
         <div class="card__content">
-            <p class="card__text">Карачаево-Черкессия</p>
+            <h2 class="card__text">Карачаево-Черкессия</h2>
             <div class="card__like"></div>
         </div>
     </article>
     </section>
 </main>
     <footer class="footer page__container">&copy; 2020 Mesto Russia</footer>
+    <script src="./scripts/index.js"></script>
 </body>
 </html>
