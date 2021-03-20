@@ -1,0 +1,9 @@
+.card__like-active {
+    background-image: url(../../../image/like-active.png);
+    color: #000000;
+    min-width: 22px;
+    height: 19px;
+    background-size: contain;
+    margin-right: 30px;
+    cursor: pointer;
+}
