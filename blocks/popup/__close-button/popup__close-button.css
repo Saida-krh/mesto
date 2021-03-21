@@ -9,6 +9,8 @@
     height: 40px;
     transform: rotate(-45deg);
     cursor: pointer;
+    border: none;
+    background-color: rgba(0, 0, 0, -0.5);
 }
 .popup__close-button:hover {
     opacity: 0.6;

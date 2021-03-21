@@ -7,22 +7,17 @@ const subtitle = document.querySelector('.profile__subtitle');
 
 const formElement = document.querySelector('.popup__content');
 
-const inputTitle = document.getElementById('title');
-const inputSubTitle = document.getElementById('subtitle');
+const inputTitle = document.querySelector('.js-title');
+const inputSubTitle = document.querySelector('.js-subtitle');
 
-const saveButton = document.querySelector('.popup__button')
 
 function popupToggler(){
     popup.classList.toggle(openPopupClassName) 
 }
 
-editButton.addEventListener('click', function(){
-    openPopup()
-});
+editButton.addEventListener('click', openPopup);
 
-closeButton.addEventListener('click', function(){
-    popupToggler()
-});
+closeButton.addEventListener('click', popupToggler);
 
 function openPopup(){
     popupToggler()
@@ -30,21 +25,12 @@ function openPopup(){
     inputSubTitle.value = subtitle.textContent;
 }
 
-    // saveButton.addEventListener('click', function(){
-    //     savePopupData()
-    // });
-
-function savePopupData(){
+function savePopupData(evt){
     popupToggler()
     title.textContent = inputTitle.value;
     subtitle.textContent = inputSubTitle.value;
+    evt.preventDefault();
 }
 
-formElement.addEventListener('submit', function(evt) {
-    savePopupData()
-    evt.preventDefault();
-});
-
-
-console.log('Popup', popup)
+formElement.addEventListener('submit', savePopupData);
 

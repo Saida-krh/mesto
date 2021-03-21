@@ -1,6 +1,7 @@
 .page__container {
     width: calc(100% - (2 * 200px));
     margin: 0 auto;
+    z-index: 1;
 }
 
 @media screen and (max-width: 1279px) {
