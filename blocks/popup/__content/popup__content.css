@@ -9,10 +9,8 @@
     z-index: 2;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width:768px) {
     .popup__content {
-        top: 0;
-        left: 0;
         min-width: 282px;
         margin: 0;
         padding: 25px 22px 37px 25px;

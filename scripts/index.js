@@ -5,10 +5,10 @@ const closeButton = document.querySelector('.popup__close-button');
 const title = document.querySelector('.profile__title');
 const subtitle = document.querySelector('.profile__subtitle');
 
-const formElement = document.querySelector('.popup__content');
+const formElement = document.querySelector('.popup__form');
 
-const inputTitle = document.querySelector('.js-title');
-const inputSubTitle = document.querySelector('.js-subtitle');
+const inputTitle = document.querySelector('#title');
+const inputSubTitle = document.querySelector('#subtitle');
 
 
 function popupToggler(){

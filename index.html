@@ -9,7 +9,6 @@
   <body class="page">
       <header class="header page__container">
           <div class="header__logo"></div>
-          <div class="header__line"></div>
       </header>
    <main>
     <section class="profile page__container">
@@ -69,15 +68,15 @@
     </section>
 </main>
     <footer class="footer page__container">
-      <p>&copy; 2020 Mesto Russia</p>
+      <p class="footer__paragraph">&copy; 2020 Mesto Russia</p>
     </footer>
     <div class="popup page__container">
         <div class="popup__content">
            <button class="popup__close-button" type="button"></button>
            <h2 class="popup__title">Редактировать профиль</h2>
-            <form class="popup__form">
-             <input class="popup__input js-title" type="text">
-             <input class="popup__input js-subtitle" type="text">
+            <form class="popup__form" name="form">
+             <input class="popup__input" type="text" name="title" id="title">
+             <input class="popup__input" type="text" name="subtitle" id="subtitle">
              <button class="popup__button" type="submit">Сохранить</button>
             </form>
         </div>
