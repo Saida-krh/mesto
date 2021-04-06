@@ -1,28 +1,95 @@
-const popup = document.querySelector('.popup');
-const editButton = document.querySelector('.profile__edit-button');
 const openPopupClassName = 'popup_opened';
-const closeButton = document.querySelector('.popup__close-button');
+const closeButton = document.querySelectorAll('.popup__close-button');
+
 const title = document.querySelector('.profile__title');
 const subtitle = document.querySelector('.profile__subtitle');
 
-const formElement = document.querySelector('.popup__form');
+const formEditElement = document.querySelector('form[name="form-edit"]');
+const formAddElement = document.querySelector('form[name="form-add"]');
+const addButton = document.querySelector('.profile__add-button');
+const editButton = document.querySelector('.profile__edit-button');
 
 const inputTitle = document.querySelector('#title');
 const inputSubTitle = document.querySelector('#subtitle');
+const inputName = document.querySelector('#name');
+const inputLink = document.querySelector('#link');
+
+const popupEdit = document.querySelector('#popup_edit');
+const popupAdd = document.querySelector('#popup_add');
+const popupImage = document.querySelector('#popup_image');
+const cardImage = document.querySelector('.popup__card-image');
+const popupParagraph = document.querySelector('.popup__paragraph');
+
+const cardLike = document.querySelector('.card__like');
 
 
-function popupToggler(){
-    popup.classList.toggle(openPopupClassName) 
+const initialCards = [
+    {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+  ];
+
+  
+function popupToggler(type){
+    
+    if(type === 'add'){
+        popupAdd.classList.toggle(openPopupClassName);
+        return;
+    }
+    if(type === 'image') {
+        popupImage.classList.toggle(openPopupClassName);
+        return;
+    }
+    popupEdit.classList.toggle(openPopupClassName);    
 }
 
-editButton.addEventListener('click', openPopup);
+editButton.addEventListener('click', openEditPopup);
+addButton.addEventListener('click', openAddPopup);
 
-closeButton.addEventListener('click', popupToggler);
+closeButton.forEach(function(close_elm){
+    close_elm.addEventListener('click', closeModal);
+})
 
-function openPopup(){
-    popupToggler()
+
+function closeModal(evt){
+const modalId = evt.target.parentNode.parentNode.id;
+const modalType = modalId.split('_')[1];
+  popupToggler(modalType)
+}
+
+function openEditPopup(){
+    popupToggler('edit')
     inputTitle.value = title.textContent;
     inputSubTitle.value = subtitle.textContent;
+}
+
+function openAddPopup(){
+    popupToggler('add')
+}
+
+function openImagePopup(){
+    popupToggler('image')    
 }
 
 function savePopupData(evt){
@@ -32,5 +99,55 @@ function savePopupData(evt){
     evt.preventDefault();
 }
 
-formElement.addEventListener('submit', savePopupData);
+formEditElement.addEventListener('submit', savePopupData);
+formAddElement.addEventListener('submit', saveImageData);
+
+function saveImageData(evt){
+    popupToggler('add')
+    const nameValue = inputName.value;
+    const linkValue = inputLink.value;
+    addCard(nameValue, linkValue, true)
+    evt.preventDefault();      
+}
+
+function addCard(name, link, modalAdd){
+const cardsSection = document.querySelector('.cards');
+const cardElement = `<article class="card">
+<img src="${link}" alt="${name}" class="card__image">
+<button class="card__trash" type="button"></button>
+<div class="card__content">
+    <h2 class="card__text">${name}</h2>
+    <button class="card__like" type="button"></button>
+  </div>
+ </article>`;
+let sortableType = 'beforeend';
+if(modalAdd){
+sortableType = 'afterbegin'
+}
+cardsSection.insertAdjacentHTML(sortableType, cardElement);
+};
+
+
+initialCards.forEach(function (item) {
+  addCard(item.name, item.link)
+})
+
+
+document.addEventListener('click', function(evt){
+if(evt.target.classList.contains('card__like')) {
+   evt.target.classList.toggle('card__like_active');
+}
+if(evt.target.classList.contains('card__image')){
+    popupToggler('image')
+cardImage.src = evt.target.src
+popupParagraph.textContent = evt.target.alt
+}
+if(evt.target.classList.contains('card__trash')) {
+    evt.target.parentNode.remove()
+   
+}
+});
+
+
+
 
