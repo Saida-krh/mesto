@@ -1,25 +1,24 @@
 const openPopupClassName = 'popup_opened';
-const closeButton = document.querySelectorAll('.popup__close-button');
 
 const title = document.querySelector('.profile__title');
 const subtitle = document.querySelector('.profile__subtitle');
 
 const formEditElement = document.querySelector('form[name="form-edit"]');
 const formAddElement = document.querySelector('form[name="form-add"]');
-const addButton = document.querySelector('.profile__add-button');
-const editButton = document.querySelector('.profile__edit-button');
+
 
 const inputTitle = document.querySelector('#title');
 const inputSubTitle = document.querySelector('#subtitle');
 const inputName = document.querySelector('#name');
 const inputLink = document.querySelector('#link');
 
+
 const popupEdit = document.querySelector('#popup_edit');
 const popupAdd = document.querySelector('#popup_add');
 const popupImage = document.querySelector('#popup_image');
-const cardImage = document.querySelector('.popup__card-image');
 const popupParagraph = document.querySelector('.popup__paragraph');
 
+const cardImage = document.querySelector('.popup__card-image');
 const cardLike = document.querySelector('.card__like');
 
 
@@ -50,6 +49,11 @@ const initialCards = [
     }
   ];
 
+initialCards.forEach(function (item) {
+    addCard(item.name, item.link)
+  })
+  
+
   
 function popupToggler(type){
     
@@ -57,19 +61,14 @@ function popupToggler(type){
         popupAdd.classList.toggle(openPopupClassName);
         return;
     }
+
     if(type === 'image') {
         popupImage.classList.toggle(openPopupClassName);
         return;
     }
+
     popupEdit.classList.toggle(openPopupClassName);    
 }
-
-editButton.addEventListener('click', openEditPopup);
-addButton.addEventListener('click', openAddPopup);
-
-closeButton.forEach(function(close_elm){
-    close_elm.addEventListener('click', closeModal);
-})
 
 
 function closeModal(evt){
@@ -99,8 +98,7 @@ function savePopupData(evt){
     evt.preventDefault();
 }
 
-formEditElement.addEventListener('submit', savePopupData);
-formAddElement.addEventListener('submit', saveImageData);
+
 
 function saveImageData(evt){
     popupToggler('add')
@@ -110,42 +108,58 @@ function saveImageData(evt){
     evt.preventDefault();      
 }
 
-function addCard(name, link, modalAdd){
-const cardsSection = document.querySelector('.cards');
-const cardElement = `<article class="card">
-<img src="${link}" alt="${name}" class="card__image">
-<button class="card__trash" type="button"></button>
-<div class="card__content">
-    <h2 class="card__text">${name}</h2>
-    <button class="card__like" type="button"></button>
-  </div>
- </article>`;
-let sortableType = 'beforeend';
-if(modalAdd){
-sortableType = 'afterbegin'
-}
-cardsSection.insertAdjacentHTML(sortableType, cardElement);
+function addCard(name, link, modalAdd) {
+    const cardsSection = document.querySelector('.cards');
+    const cardElement  = `<article class="card">
+        <img src="${link}" alt="${name}" class="card__image">
+        <button class="card__trash" type="button"></button>
+        <div class="card__content">
+            <h2 class="card__text">${name}</h2>
+            <button class="card__like" type="button"></button>
+        </div>
+        </article>`;
+
+    let sortableType = 'beforeend';
+
+    if(modalAdd) {
+        sortableType = 'afterbegin'
+    }
+
+    cardsSection.insertAdjacentHTML(sortableType, cardElement);
 };
 
-
-initialCards.forEach(function (item) {
-  addCard(item.name, item.link)
-})
+formEditElement.addEventListener('submit', savePopupData);
+formAddElement.addEventListener('submit', saveImageData);
 
 
-document.addEventListener('click', function(evt){
-if(evt.target.classList.contains('card__like')) {
-   evt.target.classList.toggle('card__like_active');
-}
-if(evt.target.classList.contains('card__image')){
-    popupToggler('image')
-cardImage.src = evt.target.src
-popupParagraph.textContent = evt.target.alt
-}
-if(evt.target.classList.contains('card__trash')) {
-    evt.target.parentNode.remove()
-   
-}
+document.addEventListener('click', function(evt) {
+
+    if(evt.target.classList.contains('card__like')) {
+        evt.target.classList.toggle('card__like_active');
+    }
+
+    if(evt.target.classList.contains('card__image')){
+        popupToggler('image')
+        cardImage.src = evt.target.src
+        popupParagraph.textContent = evt.target.alt
+    }
+
+    if(evt.target.classList.contains('card__trash')) {
+        evt.target.parentNode.remove()
+    }
+
+    if(evt.target.classList.contains('profile__add-button')){
+        openEditPopup()
+    }
+
+    if(evt.target.classList.contains('profile__edit-button')){
+        openAddPopup()
+    }
+
+    if(evt.target.classList.contains('popup__close-button')){
+        closeModal(evt)
+    }
+
 });
 
 
