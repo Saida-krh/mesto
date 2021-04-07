@@ -109,23 +109,16 @@ function saveImageData(evt){
 }
 
 function addCard(name, link, modalAdd) {
+    const cardTemplate = document.querySelector('#card-template').content;
+    const cardElement = cardTemplate.cloneNode(true);
     const cardsSection = document.querySelector('.cards');
-    const cardElement  = `<article class="card">
-        <img src="${link}" alt="${name}" class="card__image">
-        <button class="card__trash" type="button"></button>
-        <div class="card__content">
-            <h2 class="card__text">${name}</h2>
-            <button class="card__like" type="button"></button>
-        </div>
-        </article>`;
-
-    let sortableType = 'beforeend';
-
+    cardElement.querySelector('.card__image').src = link;
+    cardElement.querySelector('.card__text').textContent = name;
     if(modalAdd) {
-        sortableType = 'afterbegin'
+        cardsSection.prepend(cardElement);
+        return;
     }
-
-    cardsSection.insertAdjacentHTML(sortableType, cardElement);
+    cardsSection.append(cardElement);
 };
 
 formEditElement.addEventListener('submit', savePopupData);
@@ -149,11 +142,11 @@ document.addEventListener('click', function(evt) {
     }
 
     if(evt.target.classList.contains('profile__add-button')){
-        openEditPopup()
+        openAddPopup()
     }
 
     if(evt.target.classList.contains('profile__edit-button')){
-        openAddPopup()
+        openEditPopup()
     }
 
     if(evt.target.classList.contains('popup__close-button')){
