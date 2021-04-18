@@ -17,10 +17,6 @@ const popupEdit = document.querySelector('#popup_edit');
 const popupAdd = document.querySelector('#popup_add');
 const popupImage = document.querySelector('#popup_image');
 
-const closePopupEdit = popupEdit.querySelector('.popup__close-button');
-const closePopupAdd = popupAdd.querySelector('.popup__close-button');
-const closePopupImage = popupImage.querySelector('.popup__close-button');
-
 const popupParagraph = document.querySelector('.popup__paragraph');
 
 const cardImage = document.querySelector('.popup__card-image');
@@ -29,8 +25,8 @@ const cardImage = document.querySelector('.popup__card-image');
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsSection = document.querySelector('.cards'); 
 
-const addButoon = document.querySelector('.profile__add-button')
-const editButoon = document.querySelector('.profile__edit-button')
+const addButton = document.querySelector('.profile__add-button')
+const editButton = document.querySelector('.profile__edit-button')
 
 initialCards.forEach((item) => {
     renderCardEnd(item, cardsSection)
@@ -38,6 +34,7 @@ initialCards.forEach((item) => {
   
 const openPopup = (popupElem) => {
     popupElem.classList.add(openPopupClassName);
+    
 }
 
 const closePopup = (popupElem) => {
@@ -47,7 +44,14 @@ const closePopup = (popupElem) => {
 function openEditPopup(){
     inputTitle.value = title.textContent;
     inputSubTitle.value = subtitle.textContent;
+    validateOnOpenPopup(popupEdit, popupSelectors)
     openPopup(popupEdit)
+    initCloseListners(popupEdit)
+}
+
+function openAddPopup(){
+    openPopup(popupAdd)
+    initCloseListners(popupAdd)
 }
 
 function saveEditableData(evt){
@@ -70,6 +74,7 @@ function saveImageData(evt){
 
     inputName.value = ''
     inputLink.value = ''
+    validateOnClosePopup(popupAdd, popupSelectors)
     closePopup(popupAdd)
 }
 
@@ -77,6 +82,8 @@ function openPopupImage (evt){
     cardImage.src = evt.target.src
     popupParagraph.textContent = evt.target.alt
     openPopup(popupImage)
+    initCloseListners(popupImage)
+
 }
 
 function addCard(item) {
@@ -117,16 +124,61 @@ function handleDeleteCard (evt) {
 
 }
 
+const initOpenAndSaveListners = () => {
+    formEditElement.addEventListener('submit', saveEditableData);
+    formAddElement.addEventListener('submit', saveImageData);
+    editButton.addEventListener('click', openEditPopup)
+    addButton.addEventListener('click', openAddPopup)
+}
 
-formEditElement.addEventListener('submit', saveEditableData);
-formAddElement.addEventListener('submit', saveImageData);
+
+const initCloseListners = (popupElement) => {
+
+    const closePopupButton = popupElement.querySelector('.popup__close-button')
+
+    closePopupButton.addEventListener('click', () => closePopup(popupElement))
+
+    closeByOverlayClick(popupElement)
+
+    closeByEsc(popupElement)
+}
 
 
-addButoon.addEventListener('click', ()=>  openPopup(popupAdd))
-editButoon.addEventListener('click', openEditPopup)
+function closeByOverlayClick (popupElement) {
+    document.addEventListener('click', clickClosePopup)
 
-closePopupEdit.addEventListener('click', () =>closePopup(popupEdit));
+    function clickClosePopup(evt) {
+        if(evt.target.classList.contains('popup_opened')){
+            closePopup(popupElement)
+            document.removeEventListener('click',  clickClosePopup)
+        }   
+    }
 
-closePopupAdd.addEventListener('click', () =>closePopup(popupAdd));
+}
 
-closePopupImage.addEventListener('click', () =>closePopup(popupImage));
+function closeByEsc (popupElement) {
+    document.addEventListener('keydown', keyClosePopup)
+
+    function keyClosePopup(evt) {
+        if (evt.key === 'Escape') {
+            closePopup(popupElement)
+            document.removeEventListener('keydown',  keyClosePopup)
+        }   
+    }
+}
+
+const validateOnOpenPopup = (popupFormElement, selectorSettingsList) =>{
+    const popupInputList = Array.from(popupFormElement.querySelectorAll(selectorSettingsList.inputSelector));
+    popupInputList.forEach((popupInput) => {
+        checkInputValidity(popupFormElement, popupInput,  selectorSettingsList);
+    })
+    
+}
+
+const validateOnClosePopup = (popupFormElement, selectorSettingsList) =>{
+    const popupInputList = Array.from(popupFormElement.querySelectorAll(selectorSettingsList.inputSelector));
+    const submitButtonSelector = popupFormElement.querySelector(selectorSettingsList.submitButtonSelector);
+        toggleButtonState(popupInputList, submitButtonSelector);
+}
+
+initOpenAndSaveListners()
