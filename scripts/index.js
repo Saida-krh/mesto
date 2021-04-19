@@ -21,6 +21,9 @@ const popupParagraph = document.querySelector('.popup__paragraph');
 
 const cardImage = document.querySelector('.popup__card-image');
 
+const closePopupEdit = popupEdit.querySelector('.popup__close-button');
+const closePopupAdd = popupAdd.querySelector('.popup__close-button');
+const closePopupImage = popupImage.querySelector('.popup__close-button');
 
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsSection = document.querySelector('.cards'); 
@@ -28,17 +31,24 @@ const cardsSection = document.querySelector('.cards');
 const addButton = document.querySelector('.profile__add-button')
 const editButton = document.querySelector('.profile__edit-button')
 
+let openedPoupElem = {}
+
 initialCards.forEach((item) => {
-    renderCardEnd(item, cardsSection)
+    appendCard(item, cardsSection)
   })
   
 const openPopup = (popupElem) => {
     popupElem.classList.add(openPopupClassName);
-    
+    document.addEventListener('click', clickClosePopup)
+    document.addEventListener('keydown', keyClosePopup)
+    openedPoupElem = popupElem
 }
 
 const closePopup = (popupElem) => {
     popupElem.classList.remove(openPopupClassName);
+    document.removeEventListener('click',  clickClosePopup)
+    document.removeEventListener('keydown',  keyClosePopup)
+    clearPopupInputs(popupElem)
 }
 
 function openEditPopup(){
@@ -46,15 +56,13 @@ function openEditPopup(){
     inputSubTitle.value = subtitle.textContent;
     validateOnOpenPopup(popupEdit, popupSelectors)
     openPopup(popupEdit)
-    initCloseListners(popupEdit)
 }
 
-function openAddPopup(){
+function openAddCardPopup(){
     openPopup(popupAdd)
-    initCloseListners(popupAdd)
 }
 
-function saveEditableData(evt){
+function submitEditProfileForm(evt){
     evt.preventDefault();
 
     title.textContent = inputTitle.value;
@@ -70,7 +78,7 @@ function saveImageData(evt){
         link : inputLink.value
     }
 
-    renderCardStart(cardItemData, cardsSection )
+    prependCard(cardItemData, cardsSection )
 
     inputName.value = ''
     inputLink.value = ''
@@ -80,9 +88,9 @@ function saveImageData(evt){
 
 function openPopupImage (evt){
     cardImage.src = evt.target.src
+    cardImage.alt = evt.target.alt
     popupParagraph.textContent = evt.target.alt
     openPopup(popupImage)
-    initCloseListners(popupImage)
 
 }
 
@@ -106,12 +114,12 @@ function addCard(item) {
 
 };
 
-function renderCardEnd (item, wrap) {
+function appendCard (item, wrap) {
     wrap.append(addCard(item));
 }
 
 
-function renderCardStart (item, wrap) {
+function prependCard (item, wrap) {
     wrap.prepend(addCard(item));
 }
 
@@ -125,46 +133,26 @@ function handleDeleteCard (evt) {
 }
 
 const initOpenAndSaveListners = () => {
-    formEditElement.addEventListener('submit', saveEditableData);
+    formEditElement.addEventListener('submit', submitEditProfileForm);
     formAddElement.addEventListener('submit', saveImageData);
     editButton.addEventListener('click', openEditPopup)
-    addButton.addEventListener('click', openAddPopup)
+    addButton.addEventListener('click', openAddCardPopup)
+
+    closePopupEdit.addEventListener('click', () =>closePopup(popupEdit));
+    closePopupAdd.addEventListener('click', () =>closePopup(popupAdd));
+    closePopupImage.addEventListener('click', () =>closePopup(popupImage));
 }
 
-
-const initCloseListners = (popupElement) => {
-
-    const closePopupButton = popupElement.querySelector('.popup__close-button')
-
-    closePopupButton.addEventListener('click', () => closePopup(popupElement))
-
-    closeByOverlayClick(popupElement)
-
-    closeByEsc(popupElement)
+function clickClosePopup(evt) {
+    if(evt.target.classList.contains('popup_opened')){
+        closePopup(openedPoupElem)
+    }   
 }
 
-
-function closeByOverlayClick (popupElement) {
-    document.addEventListener('click', clickClosePopup)
-
-    function clickClosePopup(evt) {
-        if(evt.target.classList.contains('popup_opened')){
-            closePopup(popupElement)
-            document.removeEventListener('click',  clickClosePopup)
-        }   
-    }
-
-}
-
-function closeByEsc (popupElement) {
-    document.addEventListener('keydown', keyClosePopup)
-
-    function keyClosePopup(evt) {
-        if (evt.key === 'Escape') {
-            closePopup(popupElement)
-            document.removeEventListener('keydown',  keyClosePopup)
-        }   
-    }
+function keyClosePopup(evt) {
+    if (evt.key === 'Escape') {
+        closePopup(openedPoupElem)
+    }   
 }
 
 const validateOnOpenPopup = (popupFormElement, selectorSettingsList) =>{
@@ -180,5 +168,14 @@ const validateOnClosePopup = (popupFormElement, selectorSettingsList) =>{
     const submitButtonSelector = popupFormElement.querySelector(selectorSettingsList.submitButtonSelector);
         toggleButtonState(popupInputList, submitButtonSelector);
 }
+
+const clearPopupInputs = (popupFormElement) => {
+    const popupInputs = Array.from(popupFormElement.querySelectorAll('.popup__input'));
+    popupInputs.forEach((popupInput) => {
+        popupInput.value = ''
+        hideInputError(popupFormElement, popupInput, popupSelectors)
+    })
+};
+
 
 initOpenAndSaveListners()
