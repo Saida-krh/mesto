@@ -31,8 +31,6 @@ const cardsSection = document.querySelector('.cards');
 const addButton = document.querySelector('.profile__add-button')
 const editButton = document.querySelector('.profile__edit-button')
 
-let openedPoupElem = {}
-
 initialCards.forEach((item) => {
     appendCard(item, cardsSection)
   })
@@ -41,14 +39,13 @@ const openPopup = (popupElem) => {
     popupElem.classList.add(openPopupClassName);
     document.addEventListener('click', clickClosePopup)
     document.addEventListener('keydown', keyClosePopup)
-    openedPoupElem = popupElem
 }
 
 const closePopup = (popupElem) => {
     popupElem.classList.remove(openPopupClassName);
     document.removeEventListener('click',  clickClosePopup)
     document.removeEventListener('keydown',  keyClosePopup)
-    clearPopupInputs(popupElem)
+ 
 }
 
 function openEditPopup(){
@@ -60,6 +57,7 @@ function openEditPopup(){
 
 function openAddCardPopup(){
     openPopup(popupAdd)
+    clearPopupInputs(popupAdd) 
 }
 
 function submitEditProfileForm(evt){
@@ -94,7 +92,7 @@ function openPopupImage (evt){
 
 }
 
-function addCard(item) {
+function createCard(item) {
     const cardElement = cardTemplate.cloneNode(true);
     const img = cardElement.querySelector('.card__image')
     const text = cardElement.querySelector('.card__text')
@@ -115,12 +113,12 @@ function addCard(item) {
 };
 
 function appendCard (item, wrap) {
-    wrap.append(addCard(item));
+    wrap.append(createCard(item));
 }
 
 
 function prependCard (item, wrap) {
-    wrap.prepend(addCard(item));
+    wrap.prepend(createCard(item));
 }
 
 function handleLikeToggle (evt) {
@@ -144,12 +142,16 @@ const initOpenAndSaveListners = () => {
 }
 
 function clickClosePopup(evt) {
+    const openedPoupElem =  document.querySelector('.popup_opened')
+
     if(evt.target.classList.contains('popup_opened')){
         closePopup(openedPoupElem)
     }   
 }
 
 function keyClosePopup(evt) {
+    const openedPoupElem = document.querySelector('.popup_opened')
+
     if (evt.key === 'Escape') {
         closePopup(openedPoupElem)
     }   
