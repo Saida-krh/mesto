@@ -1,61 +1,37 @@
 export class Card {
-    constructor (cardItem, openPopup){
-        this._cardImage      = document.querySelector('.popup__card-image');
-        this._cardTemplate   = document.querySelector('#card-template').content;
-        this._popupParagraph = document.querySelector('.popup__paragraph');
+    constructor (cardItem, handleCardClick, cardTemplate){
+        this._cardElement = cardTemplate.cloneNode(true);
+        this._img         = this._cardElement.querySelector('.card__image')
+        this._text        = this._cardElement.querySelector('.card__text')
+        this._trash       = this._cardElement.querySelector('.card__trash')
+        this._like        = this._cardElement.querySelector('.card__like')
+
+
         this._name = cardItem.name;
         this._url  = cardItem.link;
-        this._openPopup = openPopup
+        this._handleCardClick = handleCardClick
     };
     
     createCard() {
-        const cardElement = this._cardTemplate.cloneNode(true);
-        const img = cardElement.querySelector('.card__image')
-        const text = cardElement.querySelector('.card__text')
-        const trash = cardElement.querySelector('.card__trash')
-        const like = cardElement.querySelector('.card__like')
-    
-    
-        img.src = this._url;
-        img.alt = this._name;
-        text.textContent = this._name;
-    
-        img.addEventListener('click', (evt) => this._openPopupImage(evt))
-        like.addEventListener('click', (evt) => this._handleLikeToggle(evt))
-        trash.addEventListener('click', (evt) => this._handleDeleteCard(evt))
+        this._img.src = this._url;
+        this._img.alt = this._name;
+        this._text.textContent = this._name;
 
-        return cardElement;
+        this._setEventListeners()
+
+        return this._cardElement;
     };
 
-
-    _saveImageData(evt) {
-        evt.preventDefault();  
-    
-        const cardItemData = {
-            name : inputName.value,
-            link : inputLink.value
-        }
-    
-        prependCard(cardItemData, cardsSection )
-    
-        inputName.value = ''
-        inputLink.value = ''
-        validateOnClosePopup(popupAdd, popupSelectors)
-        closePopup(popupAdd)
-    };
-    
-    _openPopupImage (evt) {
-        const popupImage = document.querySelector('#popup_image');
-
-        this._cardImage.src = evt.target.src
-        this._cardImage.alt = evt.target.alt
-        this._popupParagraph.textContent = evt.target.alt
-        this._openPopup(popupImage)
+    _setEventListeners() {
+        this._img.addEventListener('click', () => this._handleCardClick(this._name, this._url))
+        this._like .addEventListener('click', (evt) => this._handleLikeToggle(evt))
+        this._trash.addEventListener('click', (evt) => this._handleDeleteCard(evt))
     }
     
     _handleLikeToggle (evt) {
         evt.target.classList.toggle('card__like_active')
     }
+
     _handleDeleteCard (evt) {
         evt.target.closest('.card').remove()
     }
