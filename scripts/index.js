@@ -51,17 +51,17 @@ const prependCard =  (wrap, cardElem) =>  {
 
 const openPopup = (popupElem) => {
     document.addEventListener('click', clickClosePopup)
-    document.addEventListener('keyup', keyClosePopup)
+    document.addEventListener('keyup', closeByEscape)
     popupElem.classList.add(openPopupClassName);
 }
 
-const localCreateCard = (item) => {
+const createCardLocal = (item) => {
     return new Card(item, handleCardClick, cardTemplate).createCard()
 }
 
 const initFirstPoolCards = () => {
     initialCards.forEach((item) => {
-        appendCard(cardsSection, localCreateCard(item))
+        appendCard(cardsSection, createCardLocal(item))
     })
 }
 
@@ -69,7 +69,7 @@ const initFirstPoolCards = () => {
 const closePopup = (popupElem) => {
     popupElem.classList.remove(openPopupClassName);
     document.removeEventListener('click',  clickClosePopup)
-    document.removeEventListener('keydown',  keyClosePopup)
+    document.removeEventListener('keydown',  closeByEscape)
  
 }
 
@@ -102,7 +102,7 @@ function saveImageData(evt){
         link : inputLink.value
     }
 
-    prependCard(cardsSection, localCreateCard(cardItemData))
+    prependCard(cardsSection, createCardLocal(cardItemData))
 
     formAddElement.reset()
     closePopup(popupAdd)
@@ -130,7 +130,7 @@ function clickClosePopup(evt) {
         }  
 }
 
-function keyClosePopup(evt) {
+function closeByEscape(evt) {
     if (evt.key === 'Escape') {
 
     const openedPoupElem = document.querySelector('.popup_opened')
