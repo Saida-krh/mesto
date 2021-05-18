@@ -7,17 +7,17 @@ export class Section {
 
     rendereItems(){
         this.items.map((item) => {
-            this.addItem(this.renderer(item))
+            this.addItem(item)
         })
       
     }
 
-    addItem(elem, type = 'append'){
+    addItem(item, type = 'append'){
         if (type === 'append') {
-            this.containerName.append(elem);
+            this.containerName.append(this.renderer(item));
             return;
         }
 
-        this.containerName.prepend(elem);
+        this.containerName.prepend(this.renderer(item));
     }
 }
