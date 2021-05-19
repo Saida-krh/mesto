@@ -1,6 +1,6 @@
 export class Popup {
     constructor(popupSelector){
-        this.popupElem = document.querySelector(popupSelector) 
+        this.popupElem = document.querySelector(popupSelector)
     }
 
     openPopup () {
@@ -10,7 +10,6 @@ export class Popup {
     }
 
     closePopup () {
-        console.log('close', this.popupElem);
         this.popupElem.classList.remove('popup_opened');
         document.removeEventListener('click',  this._clickByOverlay)
         document.removeEventListener('keydown',  this._closeByEscape)

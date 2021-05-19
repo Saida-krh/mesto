@@ -1,11 +1,12 @@
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js'
+import {Card} from './components/Card.js';
+import {FormValidator} from './components/FormValidator.js'
 import {popupSelectors} from './data.js'
-import {Section} from './Section.js'
+import {Section} from './components/Section.js'
 import {initialCards} from './initial-cards.js'
-import {PopupWithForm} from './PopupWithForm.js'
-import {PopupWithImage} from './PopupWithImage.js'
-import {UserInfo} from './UserInfo.js'
+import {PopupWithForm} from './components/PopupWithForm.js'
+import {PopupWithImage} from './components/PopupWithImage.js'
+import {UserInfo} from './components/UserInfo.js'
+import '../pages/index.css'; 
 
 const formEditElement = document.querySelector('form[name="form-edit"]');
 const formAddElement = document.querySelector('form[name="form-add"]');
@@ -79,12 +80,12 @@ const openAddCardPopup = () =>{
 }
 
 
-const initOpenAndSaveListners = () => {
+const initListners = () => {
     editButton.addEventListener('click', openEditPopup)
-    addButton.addEventListener('click', openAddCardPopup )
+    addButton.addEventListener('click', openAddCardPopup)
 }
 
 
 initCards.rendereItems()
 
-initOpenAndSaveListners()
+initListners()
