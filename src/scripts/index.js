@@ -32,23 +32,18 @@ const renderer = (item) => {
 
 const initCards =  new Section({ items: initialCards, renderer}, '.cards')
 
-const User = new UserInfo('.profile__title', '.profile__subtitle')
+const user = new UserInfo('.profile__title', '.profile__subtitle')
  
-const submitEditProfileForm = (evt) =>{
+const submitEditProfileForm = (evt, inputData) =>{
     evt.preventDefault();
-    User.setUserInfo(inputTitle.value, inputSubTitle.value)
+    user.setUserInfo(inputData)
     popupEdit.closePopup()
 }
 
-const submitImageForm = (evt) =>{
+const submitImageForm = (evt, inputData) =>{
     evt.preventDefault();  
-
-    const cardItemData = {
-        name : inputName.value,
-        link : inputLink.value
-    }
-
-    initCards.addItem(cardItemData, 'prepend')
+   
+    initCards.addItem(inputData, 'prepend')
     popupAdd.closePopup()
 }
 
@@ -65,7 +60,7 @@ const handleCardClick = (name, url) => {
 }
 
 const openEditPopup = () =>{
-  const {title, subtitle} =  User.getUserInfo()
+  const {title, subtitle} =  user.getUserInfo()
 
     inputTitle.value = title;
     inputSubTitle.value = subtitle;

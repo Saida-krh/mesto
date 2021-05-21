@@ -4,24 +4,28 @@ export class PopupWithForm extends Popup {
     constructor(popupSelector, submitCallback) {
         super(popupSelector);
         this._submitCallback = submitCallback;
+        this._form = this.popupElem.querySelector('.popup__form'); 
     }
 
     setEventListeners(){
-        const closeIconElement = this.popupElem.querySelector('.popup__close-button')
-        closeIconElement.addEventListener('click', this.closePopup.bind(this))     
-        this.popupElem.addEventListener('submit', this._submitCallback);
-        
+        super.setEventListeners()
+        this._form.addEventListener('submit', (evt) => {
+            evt.preventDefault()
+            this._submitCallback(evt, this._getInputValues())
+        });     
     }
     
     closePopup () {
-        const form = this.popupElem.querySelector('.popup__form');
-        this.popupElem.classList.remove('popup_opened');
-        form.reset()
-        document.removeEventListener('click',  this._clickByOverlay)
-        document.removeEventListener('keydown',  this._closeByEscape)
+        super.closePopup()
+        this._form.reset()
     }
     
     _getInputValues(){
-      return this.popupElem.querySelectorAll('input')
+      const inputsData = {}
+      const inputList = Array.from(this.popupElem.querySelectorAll('input'))  
+      inputList.forEach(input => {
+        inputsData[input.name] = input.value;
+      })
+      return inputsData
     }
 }

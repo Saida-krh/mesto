@@ -1,12 +1,12 @@
 export class Section {
     constructor({items, renderer}, containerName){
-        this.items = items;
-        this.renderer = renderer;
-        this.containerName = document.querySelector(containerName);
+        this._items = items;
+        this._renderer = renderer;
+        this._containerName = document.querySelector(containerName);
     }
 
     rendereItems(){
-        this.items.map((item) => {
+        this._items.map((item) => {
             this.addItem(item)
         })
       
@@ -14,10 +14,10 @@ export class Section {
 
     addItem(item, type = 'append'){
         if (type === 'append') {
-            this.containerName.append(this.renderer(item));
+            this._containerName.append(this._renderer(item));
             return;
         }
 
-        this.containerName.prepend(this.renderer(item));
+        this._containerName.prepend(this._renderer(item));
     }
 }
