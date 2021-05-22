@@ -12,6 +12,5 @@ export class PopupWithImage extends Popup {
         super.openPopup()
         this._popupParagraph.textContent = name
         this._cardImage.src = url
-        this.popupElem.classList.add('popup_opened');
     }
 }
